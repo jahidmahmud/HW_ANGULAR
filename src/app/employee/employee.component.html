@@ -1,0 +1,89 @@
+<div class="container">
+  <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+    <div>
+      <input id="id" formControlName="id" type="hidden" />
+    </div>
+
+    <div>
+      <label for="name">Name: </label>
+      <input id="name" formControlName="name" type="text"/>
+      <div *ngIf="userForm.get('name')?.invalid && userForm.get('name')?.touched">
+        Name is required.
+      </div>
+<!--      <small-->
+<!--        *ngIf="userForm.get('name')?.errors?.required"-->
+<!--        class="text-red-600"-->
+<!--      >This field is required.</small>-->
+    </div>
+
+    <div>
+      <label for="email">Email: </label>
+      <input id="email" formControlName="email" type="email" />
+      <div *ngIf="userForm.get('email')?.invalid && userForm.get('email')?.touched">
+        Enter a valid email.
+      </div>
+<!--      <small-->
+<!--        *ngIf="userForm.get('email')?.errors?.required"-->
+<!--        class="text-red-600"-->
+<!--      >This field is required.</small>-->
+    </div>
+
+    <div>
+      <label for="phoneNumber">Phone Number: </label>
+      <input id="phoneNumber" formControlName="phoneNumber" type="tel" />
+      <div *ngIf="userForm.get('phoneNumber')?.invalid && userForm.get('phoneNumber')?.touched">
+        Enter a valid phone number (11 digits).
+      </div>
+<!--      <small-->
+<!--        *ngIf="userForm.get('phoneNumber')?.errors?.required"-->
+<!--        class="text-red-600"-->
+<!--      >This field is required.</small>-->
+    </div>
+
+    <div>
+      <label for="department">Department: </label>
+      <input id="department" formControlName="department" type="text" />
+      <div *ngIf="userForm.get('department')?.invalid && userForm.get('department')?.touched">
+        Department is required.
+      </div>
+
+<!--      <small-->
+<!--        *ngIf="userForm.get('department')?.errors?.required"-->
+<!--        class="text-red-600"-->
+<!--      >This field is required.</small>-->
+    </div>
+
+    <button type="submit" [disabled]="userForm.invalid">Submit</button>
+    <button type="button" (click)="resetForm()">Reset</button>
+  </form>
+
+<hr>
+  <!-- Employee List Table -->
+  <h2>Employee List</h2>
+  <table border="1" *ngIf="employees.length > 0">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Phone Number</th>
+      <th>Department</th>
+      <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let employee of employees ; let i = index">
+      <td>{{ employee.id }}</td>
+      <td>{{ employee.name }}</td>
+      <td>{{ employee.email }}</td>
+      <td>{{ employee.phoneNumber }}</td>
+      <td>{{ employee.department }}</td>
+      <td>
+        <button (click)="onEdit(employee)">Edit</button>
+        <button (click)="onDelete(employee.id, i)">Delete</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <p *ngIf="employees.length === 0">No employees added yet.</p>
+</div>
